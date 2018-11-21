@@ -5,8 +5,8 @@
 #LIB = -L $(TOL)/zeromq/4.0.3/lib/ -Wl,-rpath,$(TOL)/zeromq/4.0.3/lib/
 FLG = -lzmq -lpthread
 
-sample: main.cpp
-	g++ -Wall $(INC) $(LIB) main.cpp -o client2 $(FLG)
-
-clean: client2
-	rm client2
+sample: streamSub.cpp
+	g++ -Wall $(INC) $(LIB) streamSub.cpp -o estream $(FLG)
+	g++ -Wall satPub.cpp -o esatpub $(FLG)
+clean: estream esatpub 
+	rm estream esatpub

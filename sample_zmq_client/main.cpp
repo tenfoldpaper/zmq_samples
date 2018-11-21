@@ -10,15 +10,14 @@ int main(int argc, char* argv[]){
     zmq::context_t context(1);
     zmq::socket_t sub(context, ZMQ_SUB);
     zmq::socket_t heart(context, ZMQ_REQ);
-
-    sub.connect("tcp://127.0.0.1:5560");
-    heart.connect("tcp://127.0.0.1:5561");
-
+    sub.connect("tcp://127.0.0.1:7771");
+    heart.connect("tcp://127.0.0.1:7781");
+    
     sub.setsockopt(ZMQ_SUBSCRIBE, "", 0);
     
     zmq::pollitem_t items[] = {
-        { sub, 0, ZMQ_POLLIN, 0},
-        { heart, 0, ZMQ_POLLIN, 0}
+        { static_cast<void*>(sub), 0, ZMQ_POLLIN, 0},
+        { static_cast<void*>(heart), 0, ZMQ_POLLIN, 0}
     };
     while(1){
     try{
